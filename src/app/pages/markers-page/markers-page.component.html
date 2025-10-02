@@ -1,1 +1,59 @@
-<p>markers-page works!</p>,
+<div #map class="h-[60vh] sm:h-[calc(100vh-64px)]"></div>
+<section class="h-[40vh] sm:h-auto sm:fixed sm:w-[280px] md:w-[320px] lg:w-[360px] bg-white sm:rounded-lg shadow-lg sm:top-20 sm:left-5 md:sm:left-10 p-4 sm:p-5 overflow-y-scroll sm:max-h-[calc(100vh-120px)]">
+  <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Marcadores</h2>
+  <div class="flex flex-col gap-3 max-h-[calc(100vh-200px)] overflow-y-auto">
+    @for(marker of markers(); track marker.id; let idx = $index) {
+    <div
+      class="group hover:bg-gray-50 rounded-lg transition-all duration-200 p-2 border border-gray-200"
+      (click)="flyToMarker(marker.mapBoxMarker.getLngLat())"
+      (dblclick)="deleteMarker(marker)"
+    >
+      <label class="flex items-center justify-between cursor-pointer">
+        <div class="flex items-center gap-3 flex-1">
+          <div
+            class="w-4 h-4 rounded-full shadow-md flex-shrink-0"
+            [style.backgroundColor]="marker.color"
+          ></div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <span class="text-xs font-semibold text-gray-700">Marcador #{{ idx + 1 }}</span>
+            <span class="text-xs text-gray-500 truncate">
+              Lng: {{ marker.mapBoxMarker.getLngLat().lng.toFixed(4) }}, Lat:
+              {{ marker.mapBoxMarker.getLngLat().lat.toFixed(4) }}
+            </span>
+          </div>
+        </div>
+        <input
+          type="radio"
+          name="marker-radio"
+          class="radio radio-sm border-gray-300"
+          [style.accentColor]="marker.color"
+        />
+      </label>
+    </div>
+    } @empty {
+    <div class="flex flex-col justify-center items-center bg-blue-50 rounded-lg py-8 px-4">
+      <svg
+        class="w-12 h-12 text-blue-300 mb-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+        ></path>
+      </svg>
+      <p class="text-sm text-gray-600 font-medium">No hay marcadores</p>
+      <p class="text-xs text-gray-400 mt-1">Haz clic en el mapa para agregar</p>
+    </div>
+    }
+  </div>
+</section>
