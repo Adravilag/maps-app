@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angula
 import mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment.development';
 import { v4 as uuidv4 } from 'uuid';
-import { JsonPipe } from '@angular/common';
 
 mapboxgl.accessToken = environment.mapboxToken;
 
@@ -14,7 +13,7 @@ interface Marker {
 
 @Component({
   selector: 'app-markers-page',
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './markers-page.component.html',
 })
 export class MarkersPageComponent implements AfterViewInit {

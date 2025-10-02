@@ -4,6 +4,6 @@
   root: ":root";
   include: ;
   exclude: ;
-  prefix: ;
-  logs: true;
+  prefix: "";
+  logs: false;
 }
